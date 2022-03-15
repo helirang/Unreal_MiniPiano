@@ -4,6 +4,9 @@
 #include "Components/AudioComponent.h"
 #include "SoundWarehouse.h"
 #include "Sound/SoundCue.h"
+#include "Engine/World.h"
+#include "SoundRecoder.h"
+#include "Kismet/KismetSystemLibrary.h"
 
 static int32 DebugInstrument = 0;
 FAutoConsoleVariableRef CVARDebugInstrument(
@@ -15,8 +18,11 @@ FAutoConsoleVariableRef CVARDebugInstrument(
 // Sets default values
 AInstrument::AInstrument()
 {
-	PrimaryActorTick.bCanEverTick = false;
+	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bStartWithTickEnabled = false;
 	AudioMake();
+	sheetRecoder = CreateDefaultSubobject<USoundRecoder>(TEXT("SheetRecoder"));
+	RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("root"));
 }
 
 // Called when the game starts or when spawned
@@ -25,17 +31,56 @@ void AInstrument::BeginPlay()
 	Super::BeginPlay();
 	currentSoundWarehouse = GetWorld()->SpawnActor<ASoundWarehouse>(soundWarehouseClass, FVector::ZeroVector, FRotator::ZeroRotator);
 	currentSoundWarehouse->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
-	if (DebugInstrument) {
-		if (!currentSoundWarehouse)
-			UE_LOG(LogTemp, Warning, TEXT("none SoundWarehouse"));
-	}
 	AudioSetting();
+	bPressedOrReleased.Init(true, currentSoundWarehouse->harmonySoundArr.Num());
+	bMode = false,bNext = true;
+	sheetNum=0,waitTime=0,timeCheck=0;
+	/*UE_LOG(LogTemp, Error, TEXT("bpressedOrReleased Num:: %d"), bPressedOrReleased.Num());*/
 }
 
 void AInstrument::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();
-	
+}
+
+void AInstrument::Tick(float DeltaTime)
+{
+	if (sheetMusicArr.Num() >= 2)
+	{
+		if (sheetNum >= sheetMusicArr.Num()) {
+			SetActorTickEnabled(false);
+			UE_LOG(LogTemp, Error, TEXT("instrument Arra over floor"));
+			return;
+		}
+
+		if (bNext)
+		{
+			waitTime = FCString::Atof(*sheetMusicArr[sheetNum]);
+			/*UE_LOG(LogTemp, Error, TEXT("waitTime : %f "), WaitTime);*/
+			timeCheck = waitTime + GetWorld()->GetTimeSeconds();
+			/*UE_LOG(LogTemp, Error, TEXT("SetTimeCheck : %f "), SetTimeCheck);*/
+			bNext = !bNext;
+			sheetNum++;
+		}
+		else
+		{
+			if (timeCheck <= GetWorld()->GetTimeSeconds())
+			{
+				if (0 <= FCString::Atoi(*sheetMusicArr[sheetNum]) && FCString::Atoi(*sheetMusicArr[sheetNum]) < harmonyAudioArr.Num())
+				{
+					PlayInstrument(FCString::Atoi(*sheetMusicArr[sheetNum]));
+					bNext = !bNext;
+					sheetNum++;
+					if (sheetMusicArr.Num() <= sheetNum)
+					{
+						SetActorTickEnabled(false);
+						sheetNum = 0;
+						sheetMusicArr.Empty();
+					}
+				}
+			}
+		}
+	}
 }
 
 void AInstrument::AudioSetting()
@@ -67,8 +112,51 @@ void AInstrument::AudioMake()
 	}
 }
 
-void AInstrument::Key0()
+void AInstrument::PlayInstrument(int soundNum)
 {
-	UE_LOG(LogTemp, Error, TEXT("tsteeeeeeeeee"));
+	PlaySound(soundNum);
+	sheetRecoder->RecordSheetMusic(soundNum);
 }
 
+void AInstrument::ModeChange()
+{
+	bMode = !bMode;
+}
+
+void AInstrument::StartAutoPlay(bool bOnOff)
+{
+	if (bOnOff) 
+	{
+		SetActorTickEnabled(true);
+	}
+	else
+	{
+		SetActorTickEnabled(false);
+	}
+}
+
+void AInstrument::PlaySound(int soundNum)
+{
+	if (soundNum >= harmonyAudioArr.Num()) {
+		UE_LOG(LogTemp, Error, TEXT("sound Num spill over Array"));
+		return;
+	}
+	/*UE_LOG(LogTemp, Log, TEXT("bPressedOrReleased :: %s"), bPressedOrReleased[soundNum] ? TEXT("true") : TEXT("false"));*/
+	if (bPressedOrReleased[soundNum])
+	{
+		if (bMode)
+		{
+			staccatoAudio->SetIntParameter(FName("SoundPitchSwPa"), soundNum);
+			staccatoAudio->Play();
+		}
+		else
+		{
+			harmonyAudioArr[soundNum]->Play();
+		}
+		bPressedOrReleased[soundNum] = false;
+	}
+	else
+	{
+		bPressedOrReleased[soundNum] = true;
+	}
+}

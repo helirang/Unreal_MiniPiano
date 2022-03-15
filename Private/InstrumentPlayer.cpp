@@ -3,6 +3,7 @@
 #include "InstrumentPlayer.h"
 #include "Components/InputComponent.h"
 #include "Instrument.h"
+#include "Engine/World.h"
 
 static int32 DebugInstrumentPlayer= 0;
 FAutoConsoleVariableRef CVARDebugInstrumentPlaye(
@@ -21,23 +22,24 @@ void AInstrumentPlayer::BeginPlay()
 {
 	Super::BeginPlay();
 	currentInstrument = GetWorld()->SpawnActor<AInstrument>(instrumentClass, FVector::ZeroVector, FRotator::ZeroRotator);
+	currentInstrument->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
 	if (DebugInstrumentPlayer) {
 		if(!currentInstrument)
 		UE_LOG(LogTemp, Warning,TEXT("none instrument"));
 	}
 }
 
-void AInstrumentPlayer::testKey()
+AInstrument* AInstrumentPlayer::GetInstrument()
 {
-	currentInstrument->Key0();
+	return currentInstrument;
 }
 
 // Called to bind functionality to input
 void AInstrumentPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
-	PlayerInputComponent->BindAction("On_0", IE_Pressed, this, &AInstrumentPlayer::testKey);
-	PlayerInputComponent->BindAction("On_0", IE_Released, this, &AInstrumentPlayer::testKey);
+	PlayerInputComponent->BindAction("On_0", IE_Pressed, this, &AInstrumentPlayer::Key0);
+	PlayerInputComponent->BindAction("On_0", IE_Released, this, &AInstrumentPlayer::Key0);
 	PlayerInputComponent->BindAction("On_1", IE_Pressed, this, &AInstrumentPlayer::Key1);
 	PlayerInputComponent->BindAction("On_1", IE_Released, this, &AInstrumentPlayer::Key1);
 	PlayerInputComponent->BindAction("On_2", IE_Pressed, this, &AInstrumentPlayer::Key2);
@@ -52,56 +54,50 @@ void AInstrumentPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 	PlayerInputComponent->BindAction("On_6", IE_Released, this, &AInstrumentPlayer::Key6);
 	PlayerInputComponent->BindAction("On_7", IE_Pressed, this, &AInstrumentPlayer::Key7);
 	PlayerInputComponent->BindAction("On_7", IE_Released, this, &AInstrumentPlayer::Key7);
-	PlayerInputComponent->BindAction("On_8", IE_Pressed, this, &AInstrumentPlayer::Key8);
-	PlayerInputComponent->BindAction("On_8", IE_Released, this, &AInstrumentPlayer::Key8);
-	PlayerInputComponent->BindAction("On_9", IE_Pressed, this, &AInstrumentPlayer::Key9);
-	PlayerInputComponent->BindAction("On_9", IE_Released, this, &AInstrumentPlayer::Key9);
-	//PlayerInputComponent->BindAction("On_Enter", IE_Pressed, this, &AInstrumentPlayer::ModeChange);
+	PlayerInputComponent->BindAction("On_Enter", IE_Pressed, this, &AInstrumentPlayer::ModeChange);
 }
 
 void AInstrumentPlayer::Key0()
 {
-
+	currentInstrument->PlayInstrument(0);
 }
 
 void AInstrumentPlayer::Key1()
 {
+	currentInstrument->PlayInstrument(1);
 }
 
 void AInstrumentPlayer::Key2()
 {
+	currentInstrument->PlayInstrument(2);
 }
 
 void AInstrumentPlayer::Key3()
 {
+	currentInstrument->PlayInstrument(3);
 }
 
 void AInstrumentPlayer::Key4()
 {
+	currentInstrument->PlayInstrument(4);
 }
 
 void AInstrumentPlayer::Key5()
 {
+	currentInstrument->PlayInstrument(5);
 }
 
 void AInstrumentPlayer::Key6()
 {
+	currentInstrument->PlayInstrument(6);
 }
 
 void AInstrumentPlayer::Key7()
 {
-}
-
-void AInstrumentPlayer::Key8()
-{
-}
-
-void AInstrumentPlayer::Key9()
-{
+	currentInstrument->PlayInstrument(7);
 }
 
 void AInstrumentPlayer::ModeChange()
 {
-
+	currentInstrument->ModeChange();
 }
-

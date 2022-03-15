@@ -21,7 +21,6 @@ protected:
 	virtual void BeginPlay() override;
 	
 	// 악기 연주 키에 바인딩할 함수들
-	void testKey();
 	void Key0();
 	void Key1();
 	void Key2();
@@ -30,11 +29,11 @@ protected:
 	void Key5();
 	void Key6();
 	void Key7();
-	void Key8();
-	void Key9();
 	void ModeChange();
 
 public:	
+	UFUNCTION(BlueprintCallable)
+	AInstrument* GetInstrument();
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 protected:
