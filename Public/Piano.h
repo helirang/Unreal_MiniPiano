@@ -17,6 +17,7 @@ public:
 	// Sets default values for this actor's properties
 	APiano();
 	virtual void BeginPlay() override;
+	//건반의 메테리얼을 바꾸는 함수
 	void ChangedMaterial();
 
 protected:
@@ -26,10 +27,10 @@ protected:
 public:
 	bool check;
 	UStaticMesh* SK_Mesh;
-
+	//기본 색
 	UPROPERTY(EditDefaultsOnly, Category = "FX")
 	UMaterialInterface* Original;
-
+	//누를 시 변하는 색
 	UPROPERTY(EditDefaultsOnly, Category = "FX")
 	UMaterialInterface* pressed;
 };
