@@ -7,8 +7,8 @@
 * instrument를 상속한 instrument_Piano객체는 건반 색 변경 기능을 추가하고 오버라이드한 PlayInstrument에 추가하였다.
   * [instrument_Piano의 음원 창고 객체 = ASoundWarehouse를 상속한 BP_pianoSoundWarehouse로 교체]
 
-@ UI 부분과 건반 부분은 시간이 부족하여 자동화하지 못하였습니다. 차후 시간이 나는데로 자동화 예정입니다.
 * [영상 링크]()
 * [프로젝트 빌드 파일]()
 * [포트폴리오 링크]()
+
 # 읽어주셔서 감사합니다!!
