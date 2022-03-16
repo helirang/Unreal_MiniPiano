@@ -8,8 +8,7 @@
   * [instrument_Piano의 음원 창고 객체 = ASoundWarehouse를 상속한 BP_pianoSoundWarehouse로 교체]
 
 * [영상 링크]()
-* [프로젝트 빌드 파일]()
 * [포트폴리오 링크]()
-
+* [프로젝트 빌드 파일]()
 
 # 읽어주셔서 감사합니다!!
