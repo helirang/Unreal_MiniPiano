@@ -60,8 +60,8 @@ protected:
 	USoundRecoder* sheetRecoder;
 	//단음 모드인지 화음 모드인지 체크
 	bool bMode;
-	//유저의 입력이 몇번 음원의 pressed인지 released인지 체크
-	TArray<bool> bPressedOrReleased;
+	//해당 악기의 키를 press하는건지 relese하는 건지 체크
+	TArray<bool> bKeyPressOrRelese;
 	//Recoder에서 추출한 연주용 악보 배열
 	UPROPERTY(BlueprintReadWrite,Category = "Recoder")
 	TArray<FString> sheetMusicArr;

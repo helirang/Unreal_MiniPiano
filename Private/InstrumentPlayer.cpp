@@ -39,22 +39,23 @@ void AInstrumentPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 	PlayerInputComponent->BindAction("On_0", IE_Pressed, this, &AInstrumentPlayer::Key0);
-	PlayerInputComponent->BindAction("On_0", IE_Released, this, &AInstrumentPlayer::Key0);
 	PlayerInputComponent->BindAction("On_1", IE_Pressed, this, &AInstrumentPlayer::Key1);
-	PlayerInputComponent->BindAction("On_1", IE_Released, this, &AInstrumentPlayer::Key1);
 	PlayerInputComponent->BindAction("On_2", IE_Pressed, this, &AInstrumentPlayer::Key2);
-	PlayerInputComponent->BindAction("On_2", IE_Released, this, &AInstrumentPlayer::Key2);
 	PlayerInputComponent->BindAction("On_3", IE_Pressed, this, &AInstrumentPlayer::Key3);
-	PlayerInputComponent->BindAction("On_3", IE_Released, this, &AInstrumentPlayer::Key3);
 	PlayerInputComponent->BindAction("On_4", IE_Pressed, this, &AInstrumentPlayer::Key4);
-	PlayerInputComponent->BindAction("On_4", IE_Released, this, &AInstrumentPlayer::Key4);
 	PlayerInputComponent->BindAction("On_5", IE_Pressed, this, &AInstrumentPlayer::Key5);
-	PlayerInputComponent->BindAction("On_5", IE_Released, this, &AInstrumentPlayer::Key5);
 	PlayerInputComponent->BindAction("On_6", IE_Pressed, this, &AInstrumentPlayer::Key6);
-	PlayerInputComponent->BindAction("On_6", IE_Released, this, &AInstrumentPlayer::Key6);
 	PlayerInputComponent->BindAction("On_7", IE_Pressed, this, &AInstrumentPlayer::Key7);
+	PlayerInputComponent->BindAction("On_Tab", IE_Pressed, this, &AInstrumentPlayer::ModeChange);
+
+	PlayerInputComponent->BindAction("On_0", IE_Released, this, &AInstrumentPlayer::Key0);
+	PlayerInputComponent->BindAction("On_1", IE_Released, this, &AInstrumentPlayer::Key1);
+	PlayerInputComponent->BindAction("On_2", IE_Released, this, &AInstrumentPlayer::Key2);
+	PlayerInputComponent->BindAction("On_3", IE_Released, this, &AInstrumentPlayer::Key3);
+	PlayerInputComponent->BindAction("On_4", IE_Released, this, &AInstrumentPlayer::Key4);
+	PlayerInputComponent->BindAction("On_5", IE_Released, this, &AInstrumentPlayer::Key5);
+	PlayerInputComponent->BindAction("On_6", IE_Released, this, &AInstrumentPlayer::Key6);
 	PlayerInputComponent->BindAction("On_7", IE_Released, this, &AInstrumentPlayer::Key7);
-	PlayerInputComponent->BindAction("On_Enter", IE_Pressed, this, &AInstrumentPlayer::ModeChange);
 }
 
 void AInstrumentPlayer::Key0()

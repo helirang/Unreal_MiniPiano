@@ -32,10 +32,9 @@ void AInstrument::BeginPlay()
 	currentSoundWarehouse = GetWorld()->SpawnActor<ASoundWarehouse>(soundWarehouseClass, FVector::ZeroVector, FRotator::ZeroRotator);
 	currentSoundWarehouse->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
 	AudioSetting();
-	bPressedOrReleased.Init(true, currentSoundWarehouse->harmonySoundArr.Num());
+	bKeyPressOrRelese.Init(true, currentSoundWarehouse->harmonySoundArr.Num());
 	bMode = false,bNext = true;
 	sheetNum=0,waitTime=0,timeCheck=0;
-	/*UE_LOG(LogTemp, Error, TEXT("bpressedOrReleased Num:: %d"), bPressedOrReleased.Num());*/
 }
 
 void AInstrument::PostInitializeComponents()
@@ -137,13 +136,14 @@ void AInstrument::StartAutoPlay(bool bOnOff)
 
 void AInstrument::PlaySound(int soundNum)
 {
-	if (soundNum >= harmonyAudioArr.Num()) {
-		UE_LOG(LogTemp, Error, TEXT("sound Num spill over Array"));
-		return;
-	}
-	/*UE_LOG(LogTemp, Log, TEXT("bPressedOrReleased :: %s"), bPressedOrReleased[soundNum] ? TEXT("true") : TEXT("false"));*/
-	if (bPressedOrReleased[soundNum])
+	if (bKeyPressOrRelese[soundNum]) 
 	{
+		if (soundNum >= harmonyAudioArr.Num()) {
+			UE_LOG(LogTemp, Error, TEXT("sound Num spill over Array"));
+			return;
+		}
+		/*UE_LOG(LogTemp, Log, TEXT("bPressedOrReleased :: %s"), bPressedOrReleased[soundNum] ? TEXT("true") : TEXT("false"));*/
+
 		if (bMode)
 		{
 			staccatoAudio->SetIntParameter(FName("SoundPitchSwPa"), soundNum);
@@ -153,10 +153,11 @@ void AInstrument::PlaySound(int soundNum)
 		{
 			harmonyAudioArr[soundNum]->Play();
 		}
-		bPressedOrReleased[soundNum] = false;
+		bKeyPressOrRelese[soundNum] = false;
 	}
 	else
 	{
-		bPressedOrReleased[soundNum] = true;
+		bKeyPressOrRelese[soundNum] = true;
 	}
+
 }
