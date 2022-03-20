@@ -4,21 +4,23 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "Piano.generated.h"
+#include "PianoKeyboard.generated.h"
 
 class USkeletalMesh;
 
 UCLASS()
-class MINIPROJECT_PIANO_API APiano : public AActor
+class MINIPROJECT_PIANO_API APianoKeyboard : public AActor
 {
 	GENERATED_BODY()
-
-public:
+	
+public:	
 	// Sets default values for this actor's properties
-	APiano();
-	virtual void BeginPlay() override;
-	//건반의 메테리얼을 바꾸는 함수
+	APianoKeyboard();
 	void ChangedMaterial();
+
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
 
 protected:
 	UPROPERTY(VisibleAnywhere, Category = "Components")
@@ -27,10 +29,10 @@ protected:
 public:
 	bool check;
 	UStaticMesh* SK_Mesh;
-	//기본 색
+
 	UPROPERTY(EditDefaultsOnly, Category = "FX")
 	UMaterialInterface* Original;
-	//누를 시 변하는 색
+
 	UPROPERTY(EditDefaultsOnly, Category = "FX")
 	UMaterialInterface* pressed;
 };

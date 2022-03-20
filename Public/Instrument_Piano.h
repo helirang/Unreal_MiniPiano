@@ -6,7 +6,7 @@
 #include "Instrument.h"
 #include "Instrument_Piano.generated.h"
 
-class APiano;
+class APianoKeyboard;
 /**
  * 
  */
@@ -15,14 +15,14 @@ class MINIPROJECT_PIANO_API AInstrument_Piano : public AInstrument
 {
 	GENERATED_BODY()
 private:
-	//ê±´ë°˜ì˜ ë©”í…Œë¦¬ì–¼ì„ ë³€ê²½í•˜ëŠ” í•¨ìˆ˜
+	//°Ç¹İÀÇ ¸ŞÅ×¸®¾óÀ» º¯°æÇÏ´Â ÇÔ¼ö
 	void ChangeKeyboardMetarial(int soundNum);
 public:
-	//Instrumentì˜ ì—°ì£¼ ê¸°ëŠ¥ì„ ì˜¤ë²„ë¼ì´ë”©í•˜ëŠ” í•¨ìˆ˜
+	//InstrumentÀÇ ¿¬ÁÖ ±â´ÉÀ» ¿À¹ö¶óÀÌµùÇÏ´Â ÇÔ¼ö
 	virtual void PlayInstrument(int soundNum) override;
-	//BeginPlayì—ì„œ worldì— ìƒì„±ë˜ì–´ìˆëŠ” piano ê±´ë°˜ë“¤ì„ keyboardArrì— ì…‹íŒ…í•œë‹¤. @todo Instrumentì—ì„œ ê±´ë°˜ì„ ìƒì„±í•˜ê²Œ ë³€ê²½
+	//BeginPlay¿¡¼­ world¿¡ »ı¼ºµÇ¾îÀÖ´Â piano °Ç¹İµéÀ» keyboardArr¿¡ ¼ÂÆÃÇÑ´Ù. @todo Instrument¿¡¼­ °Ç¹İÀ» »ı¼ºÇÏ°Ô º¯°æ
 	virtual void BeginPlay() override;
 private:
-	//ë©”í…Œë¦¬ì–¼ì„ ë³€ê²½í•  Piano ì•¡í„°ë“¤ì˜ ë°°ì—´
-	TArray<APiano*> keyboardArr;
+	//¸ŞÅ×¸®¾óÀ» º¯°æÇÒ Piano ¾×ÅÍµéÀÇ ¹è¿­
+	TArray<APianoKeyboard*> keyboardArr;
 };

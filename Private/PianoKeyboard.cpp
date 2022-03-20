@@ -1,12 +1,11 @@
+// Fill out your copyright notice in the Description page of Project Settings.
 
-#include "Piano.h"
+#include "PianoKeyboard.h"
 #include "ConstructorHelpers.h"
-#include "Sound/SoundCue.h"
 #include "Components/StaticMeshComponent.h"
 
-
 // Sets default values
-APiano::APiano()
+APianoKeyboard::APianoKeyboard()
 {
 	PrimaryActorTick.bCanEverTick = false;
 
@@ -20,12 +19,14 @@ APiano::APiano()
 	check = 0;
 }
 
-void APiano::BeginPlay()
+// Called when the game starts or when spawned
+void APianoKeyboard::BeginPlay()
 {
 	Super::BeginPlay();
+	
 }
 
-void APiano::ChangedMaterial()
+void APianoKeyboard::ChangedMaterial()
 {
 	//check = true;
 
