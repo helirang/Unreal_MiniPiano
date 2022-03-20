@@ -16,6 +16,7 @@ class MINIPROJECT_PIANO_API APianoKeyboard : public AActor
 public:	
 	// Sets default values for this actor's properties
 	APianoKeyboard();
+	//피아노 건반의 색을 바꾸는 함수. original <-> pressed
 	void ChangedMaterial();
 
 protected:
@@ -23,16 +24,19 @@ protected:
 	virtual void BeginPlay() override;
 
 protected:
+	//스태틱매쉬컴포넌트
 	UPROPERTY(VisibleAnywhere, Category = "Components")
-	UStaticMeshComponent* MeshComp;
+	UStaticMeshComponent* meshComp;
 
 public:
-	bool check;
-	UStaticMesh* SK_Mesh;
+	//현재 건반의 상태
+	bool bcheck;
+	//생성한 스태틱 매쉬를 할당한 변수
+	UStaticMesh* staticMesh;
 
+	//변경할 메테리얼들
 	UPROPERTY(EditDefaultsOnly, Category = "FX")
-	UMaterialInterface* Original;
-
+	UMaterialInterface* original;
 	UPROPERTY(EditDefaultsOnly, Category = "FX")
 	UMaterialInterface* pressed;
 };

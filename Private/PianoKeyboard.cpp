@@ -9,14 +9,14 @@ APianoKeyboard::APianoKeyboard()
 {
 	PrimaryActorTick.bCanEverTick = false;
 
-	MeshComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MeshComp"));
+	meshComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MeshComp"));
 
-	ConstructorHelpers::FObjectFinder<UStaticMesh> SK_Mesh(TEXT("StaticMesh'/Game/Do_StaticMesh.Do_StaticMesh'"));
-	if (SK_Mesh.Succeeded())
+	ConstructorHelpers::FObjectFinder<UStaticMesh> staticMesh(TEXT("StaticMesh'/Game/Do_StaticMesh.Do_StaticMesh'"));
+	if (staticMesh.Succeeded())
 	{
-		MeshComp->SetStaticMesh(SK_Mesh.Object);
+		meshComp->SetStaticMesh(staticMesh.Object);
 	}
-	check = 0;
+	bcheck = 0;
 }
 
 // Called when the game starts or when spawned
@@ -30,15 +30,15 @@ void APianoKeyboard::ChangedMaterial()
 {
 	//check = true;
 
-	switch (check)
+	switch (bcheck)
 	{
 	case false:
-		check = true;
-		MeshComp->SetMaterial(1, pressed);
+		bcheck = true;
+		meshComp->SetMaterial(1, pressed);
 		break;
 	case true:
-		check = false;
-		MeshComp->SetMaterial(1, Original);
+		bcheck = false;
+		meshComp->SetMaterial(1, original);
 		break;
 	}
 }
