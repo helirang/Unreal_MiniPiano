@@ -28,8 +28,6 @@ void APianoKeyboard::BeginPlay()
 
 void APianoKeyboard::ChangedMaterial()
 {
-	//check = true;
-
 	switch (bcheck)
 	{
 	case false:
