@@ -8,9 +8,7 @@
 APianoKeyboard::APianoKeyboard()
 {
 	PrimaryActorTick.bCanEverTick = false;
-
 	meshComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MeshComp"));
-
 	ConstructorHelpers::FObjectFinder<UStaticMesh> staticMesh(TEXT("StaticMesh'/Game/Do_StaticMesh.Do_StaticMesh'"));
 	if (staticMesh.Succeeded())
 	{
@@ -23,7 +21,6 @@ APianoKeyboard::APianoKeyboard()
 void APianoKeyboard::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 void APianoKeyboard::ChangedMaterial()
