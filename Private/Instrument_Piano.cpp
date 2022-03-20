@@ -16,9 +16,15 @@ void AInstrument_Piano::BeginPlay()
 	Super::BeginPlay();
 
 	UWorld* currentworld = GetWorld();
+	TArray<APianoKeyboard*> keyboardTempArr;
 	for (TActorIterator<APianoKeyboard> It(currentworld); It; ++It)
 	{
-		keyboardArr.Add(*It);
+		keyboardTempArr.Add(*It);
+	}
+	keyboardArr.Init(nullptr, keyboardTempArr.Num());
+	for (int i=0; i<keyboardTempArr.Num();i++)
+	{
+		keyboardArr[FCString::Atoi(*keyboardTempArr[i]->GetName()) - 10] = keyboardTempArr[i];
 	}
 }
 
