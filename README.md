@@ -14,7 +14,7 @@
 * [프로젝트 빌드 파일](https://drive.google.com/file/d/1ceUhLh5ZK_lcmrECHIuNZRDHF_h1BBDZ/view?usp=sharing)
   *  [ 빌드 파일 Play 설명 ] 
   *  Tab 키 입력 모드 변경 [ 화음모드, 단음모드 ]
-  *  건반 키 입력 [ 0 1 2 3 4 5 6 7 8 9 ]
+  *  건반 키 입력 오른쪽 숫자 키패드 [ 0 1 2 3 4 5 6 7 8 9 ]
   *  종료키 [ alt + f4 ]
   *  레코드 체크 == 키 입력 기록
   *  레코드 체크 해제 == 기록된 키 입력, 악보로 출력
